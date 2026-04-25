@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natours | Your Account</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      :root {
+        --green-light: #7dd56f;
+        --green-dark: #28b487;
+        --green-mid: #55c57a;
+        --bg: #f5f7f3;
+        --text-dark: #1a2e1f;
+        --text-mid: #4a5e4f;
+        --text-muted: #8a9e8f;
+        --border: #e2ead4;
+        --header-bg: #1a2e1f;
+        --sidebar-w: 28rem;
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.6rem;
+        color: var(--text-dark);
+        min-height: 100vh;
+        background: var(--bg);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* HEADER */
+      .header {
+        background: var(--header-bg);
+        padding: 0 5rem;
+        height: 7.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+        flex-shrink: 0;
+      }
+      .header__logo img {
+        height: 3.2rem;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+      .nav__el,
+      .nav__el:link,
+      .nav__el:visited {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: color 0.2s;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .nav__el:hover {
+        color: var(--green-light);
+      }
+      .nav__user-img {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--green-mid);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.4rem;
+      }
+      .hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+      }
+
+      /* LAYOUT */
+      .main {
+        flex: 1;
+        padding: 4rem 4rem;
+        max-width: 140rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .user-view {
+        background: #fff;
+        border-radius: 2rem;
+        box-shadow: 0 4px 40px rgba(30, 60, 35, 0.09);
+        display: flex;
+        overflow: hidden;
+        min-height: calc(100vh - 7.2rem - 8rem);
+      }
+
+      /* SIDEBAR */
+      .user-view__menu {
+        flex: 0 0 var(--sidebar-w);
+        background: linear-gradient(170deg, var(--header-bg) 0%, #243e2a 100%);
+        padding: 4rem 0 4rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .side-nav__profile {
+        padding: 0 3rem 3.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .side-nav__avatar {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--green-mid);
+      }
+      .side-nav__name {
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.5rem;
+      }
+      .side-nav__role {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 1.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .side-nav {
+        list-style: none;
+      }
+      .side-nav li {
+        position: relative;
+      }
+      .side-nav a {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.3rem 3rem;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        font-size: 1.45rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.2s;
+        border-left: 3px solid transparent;
+      }
+      .side-nav a svg {
+        height: 1.8rem;
+        width: 1.8rem;
+        fill: currentColor;
+        flex-shrink: 0;
+      }
+      .side-nav a:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .side-nav--active a,
+      .side-nav li.active a {
+        color: #fff;
+        border-left-color: var(--green-mid);
+        background: rgba(85, 197, 122, 0.1);
+      }
+      .admin-nav {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .admin-nav__heading {
+        margin: 0 3rem 1rem;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* CONTENT */
+      .user-view__content {
+        flex: 1;
+        padding: 5rem 0;
+        overflow-y: auto;
+      }
+      .user-view__form-container {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: 0 5rem;
+      }
+      .heading-secondary {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.6rem;
+        font-weight: 700;
+        background: linear-gradient(
+          to right,
+          var(--green-light),
+          var(--green-dark)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+        margin-bottom: 3rem;
+        line-height: 1.2;
+      }
+
+      .form__group {
+        margin-bottom: 2.5rem;
+      }
+      .form__label {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.8rem;
+      }
+      .form__input {
+        display: block;
+        width: 100%;
+        padding: 1.2rem 1.6rem;
+        font-family: inherit;
+        font-size: 1.55rem;
+        color: var(--text-dark);
+        background: #f9fbf7;
+        border: 1.5px solid var(--border);
+        border-radius: 1rem;
+        outline: none;
+        transition: all 0.25s;
+      }
+      .form__input:focus {
+        border-color: var(--green-mid);
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(85, 197, 122, 0.1);
+      }
+
+      .form__photo-upload {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+        background: #f9fbf7;
+        border-radius: 1.2rem;
+        border: 1.5px dashed var(--border);
+      }
+      .form__user-photo {
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--green-mid);
+        flex-shrink: 0;
+      }
+      .form__upload {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+      }
+      .form__upload + label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        color: var(--green-mid);
+        font-size: 1.4rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-bottom: 2px solid var(--green-mid);
+        padding-bottom: 2px;
+        transition: all 0.2s;
+      }
+      .form__upload + label:hover {
+        color: var(--green-dark);
+        border-bottom-color: var(--green-dark);
+      }
+
+      .form__actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        font-size: 1.45rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 1.1rem 3rem;
+        border-radius: 10rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s;
+      }
+      .btn--green {
+        background: var(--green-mid);
+        color: #fff;
+      }
+      .btn--green:hover {
+        background: var(--green-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 180, 135, 0.3);
+      }
+
+      .line {
+        height: 1px;
+        background: var(--border);
+        margin: 4rem 0;
+      }
+
+      /* MOBILE SIDEBAR */
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--header-bg);
+        z-index: 999;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+      }
+      .mobile-nav.open {
+        display: flex;
+      }
+      .mobile-nav__close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        font-size: 2.8rem;
+      }
+
+      @media (max-width: 1000px) {
+        .user-view__menu {
+          flex: 0 0 22rem;
+        }
+        .side-nav__profile,
+        .side-nav a,
+        .admin-nav__heading {
+          padding-left: 2rem;
+        }
+      }
+      @media (max-width: 800px) {
+        .header {
+          padding: 0 2.5rem;
+        }
+        .nav--user .nav__el:not(:last-child) {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .main {
+          padding: 2rem 1.5rem;
+        }
+        .user-view {
+          flex-direction: column;
+        }
+        .user-view__menu {
+          display: none;
+        }
+        .user-view__content {
+          padding: 4rem 0 3rem;
+        }
+        .user-view__form-container {
+          padding: 0 2.5rem;
+        }
+        .mobile-tabs {
+          display: flex !important;
+        }
+      }
+      @media (max-width: 480px) {
+        .header {
+          padding: 0 1.5rem;
+          height: 6rem;
+        }
+        .main {
+          padding: 1.5rem 1rem;
+        }
+        .user-view__form-container {
+          padding: 0 1.8rem;
+        }
+        .form__photo-upload {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      .mobile-tabs {
+        display: none;
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        background: #fff;
+      }
+      .mobile-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .mobile-tab {
+        padding: 1.4rem 2rem;
+        white-space: nowrap;
+        font-size: 1.35rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-family: inherit;
+        transition: all 0.2s;
+      }
+      .mobile-tab.active {
+        color: var(--green-mid);
+        border-bottom-color: var(--green-mid);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav__close" id="mobileClose">✕</button>
+      <a href="overview.html" class="nav__el">All tours</a>
+      <a href="#" class="nav__el">My bookings</a>
+      <button class="nav__el">Log out</button>
+    </div>
+
+    <header class="header">
+      <div class="header__logo">
+        <img
+          src="img/logo-white.png"
+          alt="Natours"
+          onerror="
+            this.style.display = 'none';
+            this.nextElementSibling.style.display = 'block';
+          "
+        />
+        <span
+          style="
+            display: none;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+          "
+          >NATOURS</span
+        >
+      </div>
+      <nav class="nav nav--user">
+        <a href="overview.html" class="nav__el">All tours</a>
+        <a href="#" class="nav__el">My bookings</a>
+        <button class="nav__el">Log out</button>
+        <a href="#" class="nav__el">
+          <img
+            src="img/user.jpg"
+            alt="Jonas"
+            class="nav__user-img"
+            onerror="this.style.background = '#55c57a'"
+          />
+          <span>Jonas</span>
+        </a>
+      </nav>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <main class="main">
+      <!-- Mobile tabs -->
+      <div class="mobile-tabs" id="mobileTabs">
+        <button class="mobile-tab active" data-tab="settings">Settings</button>
+        <button class="mobile-tab" data-tab="bookings">My Bookings</button>
+        <button class="mobile-tab" data-tab="reviews">My Reviews</button>
+        <button class="mobile-tab" data-tab="billing">Billing</button>
+      </div>
+
+      <div class="user-view">
+        <!-- Sidebar -->
+        <nav class="user-view__menu">
+          <div class="side-nav__profile">
+            <img
+              src="img/user.jpg"
+              alt="Jonas"
+              class="side-nav__avatar"
+              onerror="this.style.background = '#55c57a'"
+            />
+            <div>
+              <div class="side-nav__name">Jonas S.</div>
+              <div class="side-nav__role">Explorer</div>
+            </div>
+          </div>
+
+          <ul class="side-nav">
+            <li class="active">
+              <a href="#">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.05 15.96 0 13.36 0c-1.27 0-2.43.5-3.29 1.38L9 3.5 7.93 2.38C7.07.5 5.91 0 4.64 0 2.04 0 0 2.05 0 4.64c0 .48.11.92.18 1.36H0v14c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7.36-4c.9 0 1.64.74 1.64 1.64 0 .49-.23.92-.58 1.22L12 7l-1.7-2.14c-.35-.3-.58-.73-.58-1.22C9.72 2.74 10.46 2 11.36 2h1.28z"
+                    fill="currentColor"
+                  />
+                </svg>
+                My bookings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                    fill="currentColor"
+                  />
+                </svg>
+                My reviews
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Billing
+              </a>
+            </li>
+          </ul>
+
+          <div class="admin-nav">
+            <h5 class="admin-nav__heading">Admin</h5>
+            <ul class="side-nav">
+              <li>
+                <a href="#">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Manage tours
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Manage users
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="user-view__content">
+          <div class="user-view__form-container">
+            <h2 class="heading-secondary">Account settings</h2>
+
+            <form class="form form-user-data">
+              <div class="form__group">
+                <label class="form__label" for="name">Full name</label>
+                <input
+                  id="name"
+                  class="form__input"
+                  type="text"
+                  value="Jonas Schmedtmann"
+                  required
+                  name="name"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="email">Email address</label>
+                <input
+                  id="email"
+                  class="form__input"
+                  type="email"
+                  value="jonas@natours.io"
+                  required
+                  name="email"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label">Profile photo</label>
+                <div class="form__photo-upload">
+                  <img
+                    class="form__user-photo"
+                    src="img/user.jpg"
+                    alt="Jonas Schmedtmann"
+                    onerror="
+                      this.style.background =
+                        'linear-gradient(135deg,#55c57a,#28b487)'
+                    "
+                  />
+                  <div>
+                    <input
+                      class="form__upload"
+                      type="file"
+                      accept="image/*"
+                      id="photo"
+                      name="photo"
+                    />
+                    <label for="photo">
+                      <svg
+                        style="
+                          width: 1.6rem;
+                          height: 1.6rem;
+                          fill: currentColor;
+                          vertical-align: middle;
+                        "
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
+                      </svg>
+                      Upload new photo
+                    </label>
+                    <p
+                      style="
+                        font-size: 1.3rem;
+                        color: var(--text-muted);
+                        margin-top: 0.5rem;
+                      "
+                    >
+                      JPG, PNG up to 5MB
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="form__actions">
+                <button class="btn btn--green" type="submit">
+                  Save settings
+                </button>
+              </div>
+            </form>
+
+            <div class="line"></div>
+
+            <h2 class="heading-secondary">Change password</h2>
+            <form class="form form-user-password">
+              <div class="form__group">
+                <label class="form__label" for="password-current"
+                  >Current password</label
+                >
+                <input
+                  id="password-current"
+                  class="form__input"
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                  minlength="8"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="password-new"
+                  >New password</label
+                >
+                <input
+                  id="password-new"
+                  class="form__input"
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                  minlength="8"
+                />
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="password-confirm"
+                  >Confirm new password</label
+                >
+                <input
+                  id="password-confirm"
+                  class="form__input"
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                  minlength="8"
+                />
+              </div>
+              <div class="form__actions">
+                <button class="btn btn--green" type="submit">
+                  Update password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document
+        .getElementById('hamburger')
+        .addEventListener('click', () =>
+          document.getElementById('mobileNav').classList.add('open'),
+        );
+      document
+        .getElementById('mobileClose')
+        .addEventListener('click', () =>
+          document.getElementById('mobileNav').classList.remove('open'),
+        );
+
+      document.querySelectorAll('.side-nav li').forEach((li) => {
+        li.addEventListener('click', () => {
+          document
+            .querySelectorAll('.side-nav li')
+            .forEach((l) => l.classList.remove('active'));
+          li.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.mobile-tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          document
+            .querySelectorAll('.mobile-tab')
+            .forEach((t) => t.classList.remove('active'));
+          tab.classList.add('active');
+        });
+      });
+    </script>
+  </body>
+</html>

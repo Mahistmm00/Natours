@@ -1,0 +1,10 @@
+extends base
+
+block content
+  main.main
+    .error
+      .error__title
+        h2.heading-secondary.heading-secondary--error Page not found!
+        p.error__emoji 🗺️
+      p.error__msg= msg || "The page you're looking for doesn't exist."
+      a.btn.btn--green(href='/') Back to all tours

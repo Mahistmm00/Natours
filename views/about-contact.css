@@ -1,0 +1,162 @@
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+
+.about-hero {
+  position: relative;
+  height: clamp(28rem, 40vw, 50rem);
+  background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
+}
+.about-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.about-hero__content { position: relative; padding: 0 2rem; }
+.about-hero__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 700; color: #fff; margin-bottom: 1.5rem; line-height: 1.1;
+}
+.about-hero__sub { font-size: 2rem; color: rgba(255,255,255,.85); }
+
+.about-section {
+  background: #fff;
+  padding: calc(6rem + var(--section-rotate)) 5rem 8rem;
+  margin-top: calc(-1 * var(--section-rotate));
+}
+.about-section__inner {
+  max-width: 120rem; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  gap: 5rem;
+}
+.about-block { text-align: center; }
+.about-block__icon {
+  width: 7rem; height: 7rem; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 2.5rem;
+}
+.about-block__icon svg { width: 3rem; height: 3rem; fill: #fff; }
+.about-block__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700;
+  color: var(--text-dark); margin-bottom: 1.5rem;
+}
+.about-block__text { font-size: 1.6rem; color: var(--text-mid); line-height: 1.8; }
+
+.about-stats {
+  background: var(--bg);
+  padding: 6rem 5rem;
+}
+.about-stats__inner {
+  max-width: 100rem; margin: 0 auto;
+  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 3rem;
+}
+.about-stat { text-align: center; }
+.about-stat__num {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; font-weight: 700;
+  background: linear-gradient(to right, var(--green-light), var(--green-dark));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; line-height: 1;
+}
+.about-stat__label {
+  font-size: 1.4rem; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: .1em; margin-top: .8rem;
+}
+
+.about-cta {
+  background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+  padding: 8rem 5rem; text-align: center;
+}
+.about-cta__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem;
+}
+.about-cta__text { font-size: 1.8rem; color: rgba(255,255,255,.85); margin-bottom: 3rem; }
+.about-cta .btn--green {
+  background: #fff; color: var(--green-dark);
+  font-size: 1.6rem; padding: 1.4rem 4rem;
+}
+.about-cta .btn--green:hover { background: #f0f0f0; transform: translateY(-2px); }
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+
+.contact-page {
+  max-width: 120rem; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 0; min-height: calc(100vh - 7.2rem);
+}
+
+.contact-info {
+  background: var(--header-bg);
+  padding: 7rem 5rem;
+  display: flex; align-items: flex-start;
+}
+.contact-info__inner { width: 100%; }
+.contact-info__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem;
+}
+.contact-info__sub { font-size: 1.6rem; color: rgba(255,255,255,.65); line-height: 1.7; margin-bottom: 4rem; }
+
+.contact-detail {
+  display: flex; align-items: flex-start; gap: 1.8rem;
+  padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.contact-detail:first-of-type { border-top: 1px solid rgba(255,255,255,.1); }
+.contact-detail__icon {
+  width: 4.2rem; height: 4.2rem; border-radius: 50%; flex-shrink: 0;
+  background: rgba(85,197,122,.15); border: 1px solid rgba(85,197,122,.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-detail__icon svg { width: 1.8rem; height: 1.8rem; fill: var(--green-mid); }
+.contact-detail__text { display: flex; flex-direction: column; gap: .4rem; }
+.contact-detail__label {
+  font-size: 1.15rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: rgba(255,255,255,.4);
+}
+.contact-detail__value { font-size: 1.5rem; color: rgba(255,255,255,.85); }
+a.contact-detail__value { color: var(--green-light); text-decoration: none; }
+a.contact-detail__value:hover { text-decoration: underline; }
+
+.contact-form-wrap {
+  background: #fff; padding: 7rem 5rem;
+  display: flex; align-items: flex-start;
+}
+.contact-form { width: 100%; max-width: 56rem; }
+
+.form__textarea {
+  resize: vertical; min-height: 14rem;
+  font-family: inherit; line-height: 1.6;
+}
+
+/* ============================================================
+   RESPONSIVE — ABOUT & CONTACT
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .about-section { padding: calc(5rem + var(--section-rotate)) 3rem 6rem; }
+  .about-stats { padding: 5rem 3rem; }
+  .about-cta { padding: 6rem 3rem; }
+
+  .contact-page { grid-template-columns: 1fr; }
+  .contact-info { padding: 5rem 3rem; }
+  .contact-form-wrap { padding: 5rem 3rem; }
+}
+
+@media (max-width: 600px) {
+  .about-section { padding: calc(4rem + var(--section-rotate)) 2rem 5rem; }
+  .about-section__inner { gap: 3.5rem; }
+  .about-stat__num { font-size: 3rem; }
+  .about-cta__title { font-size: 3rem; }
+
+  .contact-info { padding: 4rem 2rem; }
+  .contact-info__title { font-size: 2.8rem; }
+  .contact-form-wrap { padding: 4rem 2rem; }
+}

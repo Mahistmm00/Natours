@@ -1,0 +1,66 @@
+extends base
+
+block content
+  main.main
+
+    //- HERO
+    .about-hero
+      .about-hero__overlay
+      .about-hero__content
+        h1.about-hero__title About Natours
+        p.about-hero__sub We turn the world into your playground
+
+    //- MISSION
+    .about-section
+      .about-section__inner
+        .about-block
+          .about-block__icon
+            svg(viewBox='0 0 24 24')
+              path(d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z' fill='currentColor')
+          h2.about-block__title Our Mission
+          p.about-block__text
+            | We believe the best way to experience the world is on foot, by boat, or with a guide who
+            | knows every secret trail. Natours was founded to connect passionate explorers with
+            | unforgettable, responsibly-run adventures in the most spectacular corners of the planet.
+
+        .about-block
+          .about-block__icon
+            svg(viewBox='0 0 24 24')
+              path(d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z' fill='currentColor')
+          h2.about-block__title Our Guides
+          p.about-block__text
+            | Every Natours guide is a certified expert with deep local knowledge and a genuine love
+            | for the outdoors. They go through rigorous training in safety, first aid, and
+            | sustainable tourism so your adventure is both thrilling and responsible.
+
+        .about-block
+          .about-block__icon
+            svg(viewBox='0 0 24 24')
+              path(d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z' fill='currentColor')
+          h2.about-block__title Our Promise
+          p.about-block__text
+            | We promise small groups, honest pricing, and zero hidden fees. Every tour is
+            | designed to leave places better than we found them — from trail clean-ups to
+            | supporting local communities along every route.
+
+    //- STATS
+    .about-stats
+      .about-stats__inner
+        .about-stat
+          .about-stat__num 9+
+          .about-stat__label Tours worldwide
+        .about-stat
+          .about-stat__num 1,000+
+          .about-stat__label Happy adventurers
+        .about-stat
+          .about-stat__num 4.9★
+          .about-stat__label Average rating
+        .about-stat
+          .about-stat__num 12
+          .about-stat__label Countries visited
+
+    //- CTA
+    .about-cta
+      h2.about-cta__title Ready to explore?
+      p.about-cta__text Browse our tours and find your next great adventure.
+      a.btn.btn--green(href='/') See all tours

@@ -1,0 +1,10 @@
+extends base
+
+block content
+  main.main
+    .error
+      .error__title
+        h2.heading-secondary.heading-secondary--error Uh oh! Something went wrong!
+        p.error__emoji 😢
+      p.error__msg= msg
+      a.btn.btn--green(href='/') Back to all tours

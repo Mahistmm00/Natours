@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natours | Exciting tours for adventurous people</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      :root {
+        --green-light: #7dd56f;
+        --green-dark: #28b487;
+        --green-mid: #55c57a;
+        --green-deep: #1e9e6e;
+        --bg: #f5f7f3;
+        --bg-card: #fff;
+        --text-dark: #1a2e1f;
+        --text-mid: #4a5e4f;
+        --text-muted: #8a9e8f;
+        --border: #e2ead4;
+        --header-bg: #1a2e1f;
+        --shadow-sm: 0 2px 12px rgba(30, 60, 35, 0.07);
+        --shadow-md: 0 8px 32px rgba(30, 60, 35, 0.12);
+        --shadow-lg: 0 20px 60px rgba(30, 60, 35, 0.16);
+        --radius-sm: 6px;
+        --radius-md: 14px;
+        --radius-lg: 22px;
+        --section-rotate: 8vw;
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 62.5%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.6rem;
+        color: var(--text-dark);
+        background: var(--bg);
+        line-height: 1.65;
+        min-height: 100vh;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        background: var(--header-bg);
+        padding: 0 5rem;
+        height: 7.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .header__logo img {
+        height: 3.2rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+      .nav__el,
+      .nav__el:link,
+      .nav__el:visited {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .nav__el:hover {
+        color: var(--green-light);
+      }
+      .nav__el--cta {
+        background: var(--green-mid);
+        color: #fff !important;
+        padding: 0.8rem 2rem;
+        border-radius: 10rem;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .nav__el--cta:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+      }
+
+      .nav__user-img {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--green-mid);
+      }
+
+      .nav__search {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 10rem;
+        padding: 0.5rem 1.2rem;
+        gap: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transition: background 0.2s;
+      }
+      .nav__search:focus-within {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .nav__search-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .nav__search-btn svg {
+        height: 1.6rem;
+        width: 1.6rem;
+        fill: rgba(255, 255, 255, 0.6);
+      }
+      .nav__search-input {
+        background: none;
+        border: none;
+        outline: none;
+        font-family: inherit;
+        font-size: 1.3rem;
+        color: #fff;
+        width: 14rem;
+        transition: width 0.3s;
+      }
+      .nav__search-input::placeholder {
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .nav__search-input:focus {
+        width: 20rem;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.4rem;
+      }
+      .hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+
+      /* ── HERO BANNER ── */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--green-dark) 0%,
+          var(--green-light) 100%
+        );
+        padding: 8rem 5rem 12rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% calc(100% - var(--section-rotate)),
+          0 100%
+        );
+      }
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .hero__title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3.6rem, 6vw, 7rem);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+      .hero__title em {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .hero__sub {
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 50rem;
+        margin: 0 auto 3.5rem;
+        position: relative;
+      }
+      .hero__stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        position: relative;
+      }
+      .hero__stat {
+        text-align: center;
+      }
+      .hero__stat-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.2rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+      }
+      .hero__stat-label {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.4rem;
+      }
+
+      /* ── MAIN ── */
+      .main {
+        padding: 5rem 5rem 8rem;
+        max-width: 140rem;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.2rem;
+        color: var(--text-dark);
+        margin-bottom: 0.6rem;
+      }
+      .section-sub {
+        font-size: 1.5rem;
+        color: var(--text-muted);
+        margin-bottom: 4rem;
+      }
+
+      /* ── FILTER BAR ── */
+      .filter-bar {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 4rem;
+      }
+      .filter-pill {
+        padding: 0.7rem 1.8rem;
+        border-radius: 10rem;
+        font-size: 1.3rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1.5px solid var(--border);
+        background: #fff;
+        color: var(--text-mid);
+        transition: all 0.2s;
+      }
+      .filter-pill:hover,
+      .filter-pill.active {
+        background: var(--green-mid);
+        border-color: var(--green-mid);
+        color: #fff;
+      }
+
+      /* ── CARD GRID ── */
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
+        gap: 3.5rem;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        border: 1px solid var(--border);
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .card__header {
+        position: relative;
+      }
+
+      .card__picture {
+        position: relative;
+        height: 22rem;
+        overflow: hidden;
+      }
+      .card__picture-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom right,
+          rgba(125, 213, 111, 0.75),
+          rgba(40, 180, 135, 0.75)
+        );
+        z-index: 1;
+      }
+      .card__picture-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      .card:hover .card__picture-img {
+        transform: scale(1.05);
+      }
+
+      .card__badge {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.4rem 1rem;
+        border-radius: 10rem;
+      }
+
+      .heading-tertirary {
+        position: absolute;
+        bottom: 1.2rem;
+        right: 1.5rem;
+        z-index: 2;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #fff;
+        text-align: right;
+        line-height: 1.2;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+      .heading-tertirary span {
+        background: none;
+      }
+
+      .card__details {
+        padding: 2rem 2.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem 1.5rem;
+      }
+      .card__sub-heading {
+        grid-column: 1 / -1;
+        font-size: 1.15rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+      }
+      .card__text {
+        grid-column: 1 / -1;
+        font-size: 1.45rem;
+        color: var(--text-mid);
+        font-style: italic;
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+      }
+      .card__data {
+        font-size: 1.3rem;
+        color: var(--text-mid);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .card__icon {
+        height: 1.6rem;
+        width: 1.6rem;
+        fill: var(--green-mid);
+        flex-shrink: 0;
+      }
+
+      .card__footer {
+        margin-top: auto;
+        background: #f9fbf7;
+        padding: 1.8rem 2.5rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .card__price-group {
+        display: flex;
+        flex-direction: column;
+      }
+      .card__footer-value {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        line-height: 1.1;
+      }
+      .card__footer-text {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+      }
+
+      .card__rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.3rem;
+        color: var(--text-mid);
+      }
+      .card__rating-star {
+        color: #f59e0b;
+        font-size: 1.4rem;
+      }
+      .card__rating-count {
+        color: var(--text-muted);
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-family: inherit;
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 1rem 2.4rem;
+        border-radius: 10rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s;
+        white-space: nowrap;
+      }
+      .btn--green {
+        background: var(--green-mid);
+        color: #fff;
+      }
+      .btn--green:hover {
+        background: var(--green-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 180, 135, 0.35);
+      }
+      .btn--outline {
+        background: transparent;
+        color: var(--green-mid);
+        border: 2px solid var(--green-mid);
+      }
+      .btn--outline:hover {
+        background: var(--green-mid);
+        color: #fff;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--header-bg);
+        color: rgba(255, 255, 255, 0.7);
+        padding: 5rem 5rem 3rem;
+      }
+      .footer__inner {
+        max-width: 120rem;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .footer__logo img {
+        height: 3rem;
+        opacity: 0.85;
+      }
+      .footer__nav {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 2.5rem;
+      }
+      .footer__nav a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 1.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        transition: color 0.2s;
+      }
+      .footer__nav a:hover {
+        color: var(--green-light);
+      }
+      .footer__copyright {
+        text-align: center;
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.4);
+        padding-top: 2.5rem;
+        max-width: 120rem;
+        margin: 0 auto;
+      }
+
+      /* ── MOBILE MENU ── */
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--header-bg);
+        z-index: 999;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+      }
+      .mobile-nav.open {
+        display: flex;
+      }
+      .mobile-nav__close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        font-size: 2.8rem;
+        line-height: 1;
+      }
+      .mobile-nav .nav__el {
+        font-size: 2.4rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        .header {
+          padding: 0 2.5rem;
+        }
+        .nav--tours,
+        .nav--user {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+
+        .hero {
+          padding: 6rem 3rem 10rem;
+        }
+        .hero__stats {
+          gap: 2rem;
+        }
+
+        .main {
+          padding: 4rem 2.5rem 6rem;
+        }
+        .card-container {
+          gap: 2.5rem;
+        }
+        .footer__inner {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .header {
+          padding: 0 1.8rem;
+          height: 6rem;
+        }
+        .hero {
+          padding: 5rem 2rem 8rem;
+        }
+        .hero__title {
+          font-size: 3.2rem;
+        }
+        .hero__stats {
+          gap: 1.5rem;
+          flex-wrap: wrap;
+        }
+        .hero__stat-num {
+          font-size: 2.4rem;
+        }
+        .main {
+          padding: 3rem 1.8rem 5rem;
+        }
+        .card-container {
+          grid-template-columns: 1fr;
+        }
+        .section-title {
+          font-size: 2.4rem;
+        }
+        footer {
+          padding: 4rem 2rem 2.5rem;
+        }
+        .footer__nav {
+          gap: 0.5rem 1.5rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .card__footer {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav__close" id="mobileClose">✕</button>
+      <a href="#" class="nav__el">All tours</a>
+      <a href="#" class="nav__el">My bookings</a>
+      <a href="#" class="nav__el">My account</a>
+      <a href="#" class="nav__el nav__el--cta">Log out</a>
+    </div>
+
+    <header class="header">
+      <nav class="nav nav--tours">
+        <a href="#" class="nav__el">All tours</a>
+        <div class="nav__search">
+          <button class="nav__search-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                fill="none"
+              />
+            </svg>
+          </button>
+          <input
+            type="text"
+            placeholder="Search tours"
+            class="nav__search-input"
+          />
+        </div>
+      </nav>
+
+      <div class="header__logo">
+        <img
+          src="img/logo-white.png"
+          alt="Natours logo"
+          onerror="
+            this.style.display = 'none';
+            this.nextElementSibling.style.display = 'block';
+          "
+        />
+        <span
+          style="
+            display: none;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+          "
+          >NATOURS</span
+        >
+      </div>
+
+      <nav class="nav nav--user">
+        <a href="#" class="nav__el">My bookings</a>
+        <a href="account.html" class="nav__el">
+          <img
+            src="img/user.jpg"
+            alt="User"
+            class="nav__user-img"
+            onerror="this.style.background = '#55c57a'"
+          />
+          <span>Jonas</span>
+        </a>
+        <button class="nav__el">Log out</button>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1 class="hero__title">
+        Discover the World's<br /><em>Hidden Wonders</em>
+      </h1>
+      <p class="hero__sub">
+        Expert-guided adventures that push your limits and fill your soul
+      </p>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <div class="hero__stat-num">9</div>
+          <div class="hero__stat-label">Tours</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">1k+</div>
+          <div class="hero__stat-label">Adventurers</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">4.9★</div>
+          <div class="hero__stat-label">Avg Rating</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">12</div>
+          <div class="hero__stat-label">Countries</div>
+        </div>
+      </div>
+    </div>
+
+    <main class="main">
+      <h2 class="section-title">All Tours</h2>
+      <p class="section-sub">
+        Find your perfect adventure — from gentle hikes to extreme expeditions
+      </p>
+
+      <div class="filter-bar">
+        <button class="filter-pill active">All</button>
+        <button class="filter-pill">Easy</button>
+        <button class="filter-pill">Medium</button>
+        <button class="filter-pill">Difficult</button>
+        <button class="filter-pill">Under $500</button>
+        <button class="filter-pill">Bestsellers</button>
+      </div>
+
+      <div class="card-container">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="card__header">
+            <div class="card__picture">
+              <div class="card__picture-overlay"></div>
+              <img
+                src="img/tour-1-cover.jpg"
+                alt="The Forest Hiker"
+                class="card__picture-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80'
+                "
+              />
+              <span class="card__badge">Easy</span>
+            </div>
+            <h3 class="heading-tertirary"><span>The Forest Hiker</span></h3>
+          </div>
+          <div class="card__details">
+            <h4 class="card__sub-heading">5-day tour</h4>
+            <p class="card__text">
+              Breathtaking hike through the Canadian Banff National Park
+            </p>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              Banff, Canada
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              April 2021
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              3 stops
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              25 people
+            </div>
+          </div>
+          <div class="card__footer">
+            <div class="card__price-group">
+              <span class="card__footer-value">$297</span>
+              <span class="card__footer-text">per person</span>
+            </div>
+            <div class="card__rating">
+              <span class="card__rating-star">★</span>
+              <strong>4.9</strong>
+              <span class="card__rating-count">(21)</span>
+            </div>
+            <a href="tour.html" class="btn btn--green">Details →</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="card__header">
+            <div class="card__picture">
+              <div class="card__picture-overlay"></div>
+              <img
+                src="img/tour-2-cover.jpg"
+                alt="The Sea Explorer"
+                class="card__picture-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80'
+                "
+              />
+              <span class="card__badge">Medium</span>
+            </div>
+            <h3 class="heading-tertirary"><span>The Sea Explorer</span></h3>
+          </div>
+          <div class="card__details">
+            <h4 class="card__sub-heading">7-day tour</h4>
+            <p class="card__text">
+              Exploring the jaw-dropping US east coast by foot and by boat
+            </p>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              Oregon, US
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              June 2021
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              4 stops
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              15 people
+            </div>
+          </div>
+          <div class="card__footer">
+            <div class="card__price-group">
+              <span class="card__footer-value">$497</span>
+              <span class="card__footer-text">per person</span>
+            </div>
+            <div class="card__rating">
+              <span class="card__rating-star">★</span>
+              <strong>4.8</strong>
+              <span class="card__rating-count">(12)</span>
+            </div>
+            <a href="#" class="btn btn--green">Details →</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="card__header">
+            <div class="card__picture">
+              <div class="card__picture-overlay"></div>
+              <img
+                src="img/tour-3-cover.jpg"
+                alt="The Snow Adventurer"
+                class="card__picture-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1478265409131-1f65c88f965c?w=600&q=80'
+                "
+              />
+              <span
+                class="card__badge"
+                style="background: rgba(220, 50, 50, 0.7)"
+                >Difficult</span
+              >
+            </div>
+            <h3 class="heading-tertirary"><span>The Snow Adventurer</span></h3>
+          </div>
+          <div class="card__details">
+            <h4 class="card__sub-heading">3-day tour</h4>
+            <p class="card__text">
+              Exciting adventure in the snow with snowboarding and skiing
+            </p>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              Aspen, USA
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              January 2022
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              2 stops
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              10 people
+            </div>
+          </div>
+          <div class="card__footer">
+            <div class="card__price-group">
+              <span class="card__footer-value">$697</span>
+              <span class="card__footer-text">per person</span>
+            </div>
+            <div class="card__rating">
+              <span class="card__rating-star">★</span>
+              <strong>4.9</strong>
+              <span class="card__rating-count">(7)</span>
+            </div>
+            <a href="#" class="btn btn--green">Details →</a>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <div class="card__header">
+            <div class="card__picture">
+              <div class="card__picture-overlay"></div>
+              <img
+                src="img/tour-4-cover.jpg"
+                alt="The City Wanderer"
+                class="card__picture-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=600&q=80'
+                "
+              />
+              <span class="card__badge">Easy</span>
+            </div>
+            <h3 class="heading-tertirary"><span>The City Wanderer</span></h3>
+          </div>
+          <div class="card__details">
+            <h4 class="card__sub-heading">7-day tour</h4>
+            <p class="card__text">
+              Living the life of Wanderlust in the US' most beautiful cities
+            </p>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              NYC, USA
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              March 2021
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              3 stops
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              20 people
+            </div>
+          </div>
+          <div class="card__footer">
+            <div class="card__price-group">
+              <span class="card__footer-value">$997</span>
+              <span class="card__footer-text">per person</span>
+            </div>
+            <div class="card__rating">
+              <span class="card__rating-star">★</span>
+              <strong>4.8</strong>
+              <span class="card__rating-count">(31)</span>
+            </div>
+            <a href="#" class="btn btn--green">Details →</a>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article
+          class="card"
+          style="border: 2px solid var(--green-mid); position: relative"
+        >
+          <div
+            style="
+              position: absolute;
+              top: -1.2rem;
+              left: 2rem;
+              background: var(--green-mid);
+              color: #fff;
+              font-size: 1.1rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.08em;
+              padding: 0.35rem 1.2rem;
+              border-radius: 10rem;
+              z-index: 5;
+            "
+          >
+            Bestseller
+          </div>
+          <div class="card__header">
+            <div class="card__picture">
+              <div class="card__picture-overlay"></div>
+              <img
+                src="img/tour-5-cover.jpg"
+                alt="The Park Camper"
+                class="card__picture-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80'
+                "
+              />
+              <span class="card__badge">Medium</span>
+            </div>
+            <h3 class="heading-tertirary"><span>The Park Camper</span></h3>
+          </div>
+          <div class="card__details">
+            <h4 class="card__sub-heading">10-day tour</h4>
+            <p class="card__text">
+              Breathing in Nature in America's most spectacular National Parks
+            </p>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              Las Vegas, USA
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              August 2021
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              4 stops
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              15 people
+            </div>
+          </div>
+          <div class="card__footer">
+            <div class="card__price-group">
+              <span class="card__footer-value">$1,497</span>
+              <span class="card__footer-text">per person</span>
+            </div>
+            <div class="card__rating">
+              <span class="card__rating-star">★</span>
+              <strong>4.9</strong>
+              <span class="card__rating-count">(19)</span>
+            </div>
+            <a href="tour.html" class="btn btn--green">Details →</a>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card">
+          <div class="card__header">
+            <div class="card__picture">
+              <div class="card__picture-overlay"></div>
+              <img
+                src="img/tour-6-cover.jpg"
+                alt="The Sports Lover"
+                class="card__picture-img"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1530866678105-2b16280a80d6?w=600&q=80'
+                "
+              />
+              <span
+                class="card__badge"
+                style="background: rgba(220, 50, 50, 0.7)"
+                >Difficult</span
+              >
+            </div>
+            <h3 class="heading-tertirary"><span>The Sports Lover</span></h3>
+          </div>
+          <div class="card__details">
+            <h4 class="card__sub-heading">14-day tour</h4>
+            <p class="card__text">
+              Surfing, skating, parajumping, rock climbing and more, all in one
+              tour
+            </p>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              California, USA
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              July 2021
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              5 stops
+            </div>
+            <div class="card__data">
+              <svg class="card__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              8 people
+            </div>
+          </div>
+          <div class="card__footer">
+            <div class="card__price-group">
+              <span class="card__footer-value">$1,997</span>
+              <span class="card__footer-text">per person</span>
+            </div>
+            <div class="card__rating">
+              <span class="card__rating-star">★</span>
+              <strong>4.7</strong>
+              <span class="card__rating-count">(23)</span>
+            </div>
+            <a href="#" class="btn btn--green">Details →</a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer__inner">
+        <div class="footer__logo">
+          <img
+            src="img/logo-green.png"
+            alt="Natours"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'block';
+            "
+          />
+          <span
+            style="
+              display: none;
+              color: #55c57a;
+              font-family: 'Playfair Display', serif;
+              font-size: 1.8rem;
+              font-weight: 700;
+            "
+            >NATOURS</span
+          >
+        </div>
+        <ul class="footer__nav">
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Download apps</a></li>
+          <li><a href="#">Become a guide</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div style="display: flex; gap: 1.2rem; align-items: center">
+          <a
+            href="login.html"
+            class="btn btn--outline"
+            style="font-size: 1.3rem; padding: 0.7rem 1.8rem"
+            >Log in</a
+          >
+          <a
+            href="#"
+            class="btn btn--green"
+            style="font-size: 1.3rem; padding: 0.7rem 1.8rem"
+            >Sign up</a
+          >
+        </div>
+      </div>
+      <p class="footer__copyright">
+        &copy; 2024 Natours by Jonas Schmedtmann. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileClose = document.getElementById('mobileClose');
+      hamburger.addEventListener('click', () =>
+        mobileNav.classList.add('open'),
+      );
+      mobileClose.addEventListener('click', () =>
+        mobileNav.classList.remove('open'),
+      );
+
+      document.querySelectorAll('.filter-pill').forEach((pill) => {
+        pill.addEventListener('click', () => {
+          document
+            .querySelectorAll('.filter-pill')
+            .forEach((p) => p.classList.remove('active'));
+          pill.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.card').forEach((card) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+      });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(
+                () => {
+                  entry.target.style.transition =
+                    'opacity 0.5s ease, transform 0.5s ease';
+                  entry.target.style.opacity = '1';
+                  entry.target.style.transform = 'translateY(0)';
+                },
+                80 *
+                  [...document.querySelectorAll('.card')].indexOf(entry.target),
+              );
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll('.card')
+        .forEach((card) => observer.observe(card));
+    </script>
+  </body>
+</html>

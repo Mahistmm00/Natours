@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natours | The Park Camper Tour</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      :root {
+        --green-light: #7dd56f;
+        --green-dark: #28b487;
+        --green-mid: #55c57a;
+        --bg: #f5f7f3;
+        --text-dark: #1a2e1f;
+        --text-mid: #4a5e4f;
+        --text-muted: #8a9e8f;
+        --border: #e2ead4;
+        --header-bg: #1a2e1f;
+        --shadow-sm: 0 2px 12px rgba(30, 60, 35, 0.07);
+        --shadow-md: 0 8px 32px rgba(30, 60, 35, 0.12);
+        --shadow-lg: 0 20px 60px rgba(30, 60, 35, 0.16);
+        --section-rotate: 8vw;
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1.6rem;
+        color: var(--text-dark);
+        background: var(--bg);
+        line-height: 1.65;
+      }
+
+      /* HEADER */
+      .header {
+        background: var(--header-bg);
+        padding: 0 5rem;
+        height: 7.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+      }
+      .header__logo img {
+        height: 3.2rem;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+      .nav__el,
+      .nav__el:link,
+      .nav__el:visited {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-size: 1.4rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .nav__el:hover {
+        color: var(--green-light);
+      }
+      .nav__user-img {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--green-mid);
+      }
+      .nav__search {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 10rem;
+        padding: 0.5rem 1.2rem;
+        gap: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .nav__search-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .nav__search-btn svg {
+        height: 1.6rem;
+        width: 1.6rem;
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.6);
+        stroke-width: 2;
+      }
+      .nav__search-input {
+        background: none;
+        border: none;
+        outline: none;
+        font-family: inherit;
+        font-size: 1.3rem;
+        color: #fff;
+        width: 14rem;
+      }
+      .nav__search-input::placeholder {
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.4rem;
+      }
+      .hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+      }
+
+      /* HERO */
+      .section-header {
+        position: relative;
+        height: clamp(40rem, 55vw, 70rem);
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% calc(100% - var(--section-rotate)),
+          0 100%
+        );
+        overflow: hidden;
+      }
+      .header__hero {
+        height: 100%;
+        position: relative;
+      }
+      .header__hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 25%;
+      }
+      .header__hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right bottom,
+          rgba(125, 213, 111, 0.82),
+          rgba(40, 180, 135, 0.82)
+        );
+      }
+      .heading-box {
+        position: absolute;
+        bottom: 15vw;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 90%;
+        max-width: 80rem;
+      }
+      .heading-primary {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3.5rem, 6vw, 7rem);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 2.5rem;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+      .heading-box__group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem;
+        flex-wrap: wrap;
+      }
+      .heading-box__detail {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 1.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+      .heading-box__icon {
+        height: 2.2rem;
+        width: 2.2rem;
+        fill: rgba(255, 255, 255, 0.9);
+      }
+
+      /* DESCRIPTION */
+      .section-description {
+        background: #fff;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: calc(-1 * var(--section-rotate));
+      }
+      .overview-box {
+        background: #f9fbf7;
+        padding: 14vw 6vw 8rem;
+        display: flex;
+        justify-content: center;
+        border-right: 1px solid var(--border);
+      }
+      .overview-box__inner {
+        max-width: 36rem;
+      }
+      .heading-secondary {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        background: linear-gradient(
+          to right,
+          var(--green-light),
+          var(--green-dark)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+        margin-bottom: 2.5rem;
+        line-height: 1.2;
+      }
+      .overview-box__group:not(:last-child) {
+        margin-bottom: 5rem;
+      }
+      .overview-box__detail {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.2rem 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 1.5rem;
+      }
+      .overview-box__detail:first-of-type {
+        border-top: 1px solid var(--border);
+      }
+      .overview-box__icon {
+        height: 2.2rem;
+        width: 2.2rem;
+        fill: var(--green-mid);
+        flex-shrink: 0;
+      }
+      .overview-box__img {
+        height: 3.8rem;
+        width: 3.8rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--green-mid);
+        flex-shrink: 0;
+      }
+      .overview-box__label {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        min-width: 10rem;
+      }
+      .overview-box__text {
+        text-transform: capitalize;
+        color: var(--text-dark);
+        font-weight: 500;
+      }
+
+      .description-box {
+        padding: 14vw 6vw 8rem;
+      }
+      .description__text {
+        font-size: 1.7rem;
+        color: var(--text-mid);
+        line-height: 1.8;
+      }
+      .description__text:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+
+      /* PICTURES */
+      .section-pictures {
+        display: flex;
+        clip-path: polygon(
+          0 var(--section-rotate),
+          100% 0,
+          100% calc(100% - var(--section-rotate)),
+          0 100%
+        );
+        margin-top: calc(-1 * var(--section-rotate));
+        position: relative;
+        z-index: 10;
+      }
+      .picture-box {
+        flex: 1;
+        overflow: hidden;
+      }
+      .picture-box__img {
+        display: block;
+        width: 100%;
+        height: 110%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      .picture-box__img--1 {
+        padding-top: 15%;
+      }
+      .picture-box__img--2 {
+        padding-bottom: 15%;
+      }
+      .picture-box__img--3 {
+        padding-bottom: 27%;
+      }
+      .picture-box:hover .picture-box__img {
+        transform: scale(1.04);
+      }
+
+      /* MAP */
+      .section-map {
+        position: relative;
+        height: 65rem;
+        margin-top: calc(-1 * var(--section-rotate));
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      .marker {
+        background-image: url('../img/pin.png');
+        background-size: cover;
+        width: 32px;
+        height: 40px;
+        cursor: pointer;
+      }
+      .mapboxgl-popup {
+        max-width: 20rem;
+      }
+      .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'DM Sans', sans-serif;
+        padding: 1.2rem !important;
+        font-size: 1.4rem;
+        box-shadow: var(--shadow-md) !important;
+        border-radius: var(--radius-sm) !important;
+      }
+
+      /* REVIEWS */
+      .section-reviews {
+        margin-top: calc(-1 * var(--section-rotate));
+        padding: calc(6rem + var(--section-rotate)) 0;
+        background: linear-gradient(
+          to right bottom,
+          var(--green-light),
+          var(--green-dark)
+        );
+        clip-path: polygon(
+          0 var(--section-rotate),
+          100% 0,
+          100% calc(100% - var(--section-rotate)),
+          0 100%
+        );
+        position: relative;
+        z-index: 20;
+      }
+      .reviews {
+        padding: 3rem 0;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 30rem;
+        grid-column-gap: 3rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-left: max(5vw, 2rem);
+        padding-right: max(5vw, 2rem);
+        scrollbar-width: none;
+      }
+      .reviews::-webkit-scrollbar {
+        display: none;
+      }
+      .reviews__card {
+        width: 30rem;
+        padding: 3.5rem;
+        background: #fff;
+        border-radius: 2rem;
+        box-shadow: var(--shadow-md);
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .reviews__avatar {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        align-self: flex-start;
+      }
+      .reviews__avatar-img {
+        height: 4.5rem;
+        width: 4.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--green-mid);
+      }
+      .reviews__user {
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-dark);
+      }
+      .reviews__text {
+        font-size: 1.5rem;
+        color: var(--text-mid);
+        font-style: italic;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        flex: 1;
+      }
+      .reviews__rating {
+        display: flex;
+        gap: 2px;
+        margin-top: auto;
+      }
+      .reviews__star {
+        font-size: 1.8rem;
+      }
+      .reviews__star--active {
+        color: #f59e0b;
+      }
+      .reviews__star--inactive {
+        color: #ddd;
+      }
+
+      /* CTA */
+      .section-cta {
+        margin-top: calc(-1 * var(--section-rotate));
+        padding: calc(12rem + var(--section-rotate)) 5rem 8rem;
+        background: var(--bg);
+      }
+      .cta {
+        max-width: 105rem;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 2.5rem;
+        box-shadow: var(--shadow-lg);
+        padding: 6rem 6rem 6rem 22rem;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 1.5rem 3rem;
+        align-items: center;
+      }
+      .cta__img {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 15rem;
+        width: 15rem;
+        border-radius: 50%;
+        box-shadow: var(--shadow-md);
+      }
+      .cta__img--logo {
+        background: linear-gradient(
+          135deg,
+          var(--green-light),
+          var(--green-dark)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        transform: translate(-35%, -50%);
+        z-index: 10;
+      }
+      .cta__img--logo img {
+        width: 100%;
+      }
+      .cta__img--1 {
+        transform: translate(-10%, -50%) scale(0.97);
+        z-index: 9;
+        object-fit: cover;
+      }
+      .cta__img--2 {
+        transform: translate(15%, -50%) scale(0.94);
+        z-index: 8;
+        object-fit: cover;
+      }
+      .cta__content {
+        grid-column: 1;
+      }
+      .cta__content .heading-secondary {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+      }
+      .cta__text {
+        font-size: 1.8rem;
+        color: var(--text-mid);
+      }
+      .cta__btn {
+        grid-column: 2;
+        grid-row: 1 / 3;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-family: inherit;
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 1.4rem 3.5rem;
+        border-radius: 10rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s;
+        white-space: nowrap;
+      }
+      .btn--green {
+        background: var(--green-mid);
+        color: #fff;
+      }
+      .btn--green:hover {
+        background: var(--green-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(40, 180, 135, 0.4);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--header-bg);
+        color: rgba(255, 255, 255, 0.7);
+        padding: 5rem 5rem 3rem;
+      }
+      .footer__inner {
+        max-width: 120rem;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .footer__logo img {
+        height: 3rem;
+        opacity: 0.85;
+      }
+      .footer__nav {
+        list-style: none;
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 0.5rem 2.5rem;
+      }
+      .footer__nav a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 1.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        transition: color 0.2s;
+      }
+      .footer__nav a:hover {
+        color: var(--green-light);
+      }
+      .footer__copyright {
+        text-align: center;
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.4);
+        padding-top: 2.5rem;
+        max-width: 120rem;
+        margin: 0 auto;
+      }
+
+      /* MOBILE */
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--header-bg);
+        z-index: 999;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+      }
+      .mobile-nav.open {
+        display: flex;
+      }
+      .mobile-nav__close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        font-size: 2.8rem;
+      }
+
+      @media (max-width: 900px) {
+        .header {
+          padding: 0 2.5rem;
+        }
+        .nav--tours,
+        .nav--user {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .section-description {
+          grid-template-columns: 1fr;
+        }
+        .overview-box {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding: 6rem 5vw;
+        }
+        .description-box {
+          padding: 5rem 5vw 6rem;
+        }
+        .cta {
+          padding: 5rem 3rem 5rem 20rem;
+        }
+        .section-cta {
+          padding: 8rem 2.5rem 6rem;
+        }
+      }
+      @media (max-width: 700px) {
+        .section-pictures {
+          flex-direction: column;
+          clip-path: none;
+          margin-top: 0;
+        }
+        .picture-box {
+          height: 24rem;
+        }
+        .picture-box__img {
+          height: 100%;
+          padding: 0 !important;
+        }
+        .cta {
+          grid-template-columns: 1fr;
+          padding: 14rem 2.5rem 3rem;
+        }
+        .cta__img {
+          top: 4rem;
+          transform: translateX(-50%) !important;
+          left: 50% !important;
+        }
+        .cta__btn {
+          justify-self: center;
+        }
+        .footer__inner {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
+        }
+        .footer__nav {
+          justify-content: center;
+        }
+        .heading-box__group {
+          gap: 2rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .header {
+          padding: 0 1.8rem;
+          height: 6rem;
+        }
+        .heading-primary {
+          font-size: 3rem;
+        }
+        .heading-box {
+          bottom: 12vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav__close" id="mobileClose">✕</button>
+      <a href="overview.html" class="nav__el">All tours</a>
+      <a href="#" class="nav__el">My bookings</a>
+      <button class="nav__el">Log out</button>
+    </div>
+
+    <header class="header">
+      <nav class="nav nav--tours">
+        <a href="overview.html" class="nav__el">← All tours</a>
+        <div class="nav__search">
+          <button class="nav__search-btn">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="6" />
+              <path d="M21 21l-4.35-4.35" stroke-linecap="round" />
+            </svg>
+          </button>
+          <input
+            type="text"
+            placeholder="Search tours"
+            class="nav__search-input"
+          />
+        </div>
+      </nav>
+      <div class="header__logo">
+        <img
+          src="img/logo-white.png"
+          alt="Natours"
+          onerror="
+            this.style.display = 'none';
+            this.nextElementSibling.style.display = 'block';
+          "
+        />
+        <span
+          style="
+            display: none;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+          "
+          >NATOURS</span
+        >
+      </div>
+      <nav class="nav nav--user">
+        <a href="#" class="nav__el">My bookings</a>
+        <button class="nav__el">Log out</button>
+        <a href="account.html" class="nav__el">
+          <img
+            src="img/user.jpg"
+            alt="Jonas"
+            class="nav__user-img"
+            onerror="this.style.background = '#55c57a'"
+          />
+          <span>Jonas</span>
+        </a>
+      </nav>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <!-- HERO -->
+    <section class="section-header">
+      <div class="header__hero">
+        <div class="header__hero-overlay"></div>
+        <img
+          class="header__hero-img"
+          src="img/tour-5-cover.jpg"
+          alt="The Park Camper Tour"
+          onerror="
+            this.src =
+              'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1600&q=80'
+          "
+        />
+      </div>
+      <div class="heading-box">
+        <h1 class="heading-primary">The Park Camper Tour</h1>
+        <div class="heading-box__group">
+          <div class="heading-box__detail">
+            <svg class="heading-box__icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"
+                fill="currentColor"
+              />
+            </svg>
+            10 days
+          </div>
+          <div class="heading-box__detail">
+            <svg class="heading-box__icon" viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                fill="currentColor"
+              />
+            </svg>
+            Las Vegas, USA
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESCRIPTION -->
+    <section class="section-description">
+      <div class="overview-box">
+        <div class="overview-box__inner">
+          <div class="overview-box__group">
+            <h2 class="heading-secondary">Quick facts</h2>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon" viewBox="0 0 24 24">
+                <path
+                  d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span class="overview-box__label">Next date</span>
+              <span class="overview-box__text">August 2021</span>
+            </div>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon" viewBox="0 0 24 24">
+                <path
+                  d="M23 6l-9.5 9.5-5-5L1 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+              <span class="overview-box__label">Difficulty</span>
+              <span class="overview-box__text">Medium</span>
+            </div>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span class="overview-box__label">Participants</span>
+              <span class="overview-box__text">15 people</span>
+            </div>
+            <div class="overview-box__detail">
+              <svg class="overview-box__icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span class="overview-box__label">Rating</span>
+              <span class="overview-box__text">4.9 / 5</span>
+            </div>
+          </div>
+
+          <div class="overview-box__group">
+            <h2 class="heading-secondary">Your guides</h2>
+            <div class="overview-box__detail">
+              <img
+                src="img/users/user-19.jpg"
+                alt="Lead guide"
+                class="overview-box__img"
+                onerror="
+                  this.src =
+                    'https://ui-avatars.com/api/?name=Steven+Miller&background=55c57a&color=fff'
+                "
+              />
+              <span class="overview-box__label">Lead guide</span>
+              <span class="overview-box__text">Steven Miller</span>
+            </div>
+            <div class="overview-box__detail">
+              <img
+                src="img/users/user-18.jpg"
+                alt="Tour guide"
+                class="overview-box__img"
+                onerror="
+                  this.src =
+                    'https://ui-avatars.com/api/?name=Lisa+Brown&background=28b487&color=fff'
+                "
+              />
+              <span class="overview-box__label">Tour guide</span>
+              <span class="overview-box__text">Lisa Brown</span>
+            </div>
+            <div class="overview-box__detail">
+              <img
+                src="img/users/user-17.jpg"
+                alt="Intern"
+                class="overview-box__img"
+                onerror="
+                  this.src =
+                    'https://ui-avatars.com/api/?name=Max+Smith&background=7dd56f&color=fff'
+                "
+              />
+              <span class="overview-box__label">Intern</span>
+              <span class="overview-box__text">Max Smith</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="description-box">
+        <h2 class="heading-secondary">About the park camper tour</h2>
+        <p class="description__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </p>
+        <p class="description__text">
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum!
+        </p>
+      </div>
+    </section>
+
+    <!-- PICTURES -->
+    <section class="section-pictures">
+      <div class="picture-box">
+        <img
+          class="picture-box__img picture-box__img--1"
+          src="img/tour-5-1.jpg"
+          alt="Tour 1"
+          onerror="
+            this.src =
+              'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=600&q=80'
+          "
+        />
+      </div>
+      <div class="picture-box">
+        <img
+          class="picture-box__img picture-box__img--2"
+          src="img/tour-5-2.jpg"
+          alt="Tour 2"
+          onerror="
+            this.src =
+              'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80'
+          "
+        />
+      </div>
+      <div class="picture-box">
+        <img
+          class="picture-box__img picture-box__img--3"
+          src="img/tour-5-3.jpg"
+          alt="Tour 3"
+          onerror="
+            this.src =
+              'https://images.unsplash.com/photo-1569428034239-f9565e32e224?w=600&q=80'
+          "
+        />
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section class="section-map">
+      <div id="map"></div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section-reviews">
+      <div class="reviews">
+        <div class="reviews__card">
+          <div class="reviews__avatar">
+            <img
+              src="img/users/user-7.jpg"
+              alt="Jim Brown"
+              class="reviews__avatar-img"
+              onerror="
+                this.src =
+                  'https://ui-avatars.com/api/?name=Jim+Brown&background=55c57a&color=fff'
+              "
+            />
+            <h6 class="reviews__user">Jim Brown</h6>
+          </div>
+          <p class="reviews__text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+            dignissimos sint quo commodi corrupti accusantium veniam saepe
+            numquam.
+          </p>
+          <div class="reviews__rating">★★★★★</div>
+        </div>
+        <div class="reviews__card">
+          <div class="reviews__avatar">
+            <img
+              src="img/users/user-14.jpg"
+              alt="Laura Wilson"
+              class="reviews__avatar-img"
+              onerror="
+                this.src =
+                  'https://ui-avatars.com/api/?name=Laura+Wilson&background=28b487&color=fff'
+              "
+            />
+            <h6 class="reviews__user">Laura Wilson</h6>
+          </div>
+          <p class="reviews__text">
+            Veniam adipisci blanditiis, corporis sit magnam aperiam ad, fuga
+            reiciendis provident deleniti cumque similique itaque animi.
+          </p>
+          <div class="reviews__rating">
+            <span class="reviews__star reviews__star--active">★</span
+            ><span class="reviews__star reviews__star--active">★</span
+            ><span class="reviews__star reviews__star--active">★</span
+            ><span class="reviews__star reviews__star--active">★</span
+            ><span class="reviews__star reviews__star--inactive">★</span>
+          </div>
+        </div>
+        <div class="reviews__card">
+          <div class="reviews__avatar">
+            <img
+              src="img/users/user-15.jpg"
+              alt="Ben Hadley"
+              class="reviews__avatar-img"
+              onerror="
+                this.src =
+                  'https://ui-avatars.com/api/?name=Ben+Hadley&background=7dd56f&color=fff'
+              "
+            />
+            <h6 class="reviews__user">Ben Hadley</h6>
+          </div>
+          <p class="reviews__text">
+            Debitis, nesciunt itaque! At quis officia natus. Suscipit,
+            reprehenderit blanditiis mollitia distinctio ducimus porro tempore
+            perspiciatis sunt vel.
+          </p>
+          <div class="reviews__rating">★★★★★</div>
+        </div>
+        <div class="reviews__card">
+          <div class="reviews__avatar">
+            <img
+              src="img/users/user-6.jpg"
+              alt="Alexander Jones"
+              class="reviews__avatar-img"
+              onerror="
+                this.src =
+                  'https://ui-avatars.com/api/?name=Alexander+Jones&background=55c57a&color=fff'
+              "
+            />
+            <h6 class="reviews__user">Alexander Jones</h6>
+          </div>
+          <p class="reviews__text">
+            Quaerat laborum eveniet ut aut maiores doloribus mollitia aperiam
+            quis praesentium sed inventore harum aliquam veritatis.
+          </p>
+          <div class="reviews__rating">★★★★★</div>
+        </div>
+        <div class="reviews__card">
+          <div class="reviews__avatar">
+            <img
+              src="img/users/user-3.jpg"
+              alt="Ayla Cornell"
+              class="reviews__avatar-img"
+              onerror="
+                this.src =
+                  'https://ui-avatars.com/api/?name=Ayla+Cornell&background=28b487&color=fff'
+              "
+            />
+            <h6 class="reviews__user">Ayla Cornell</h6>
+          </div>
+          <p class="reviews__text">
+            Perferendis quo aliquid iste quas laboriosam molestias illo est
+            voluptatem odit ea. Vero placeat culpa provident dicta maiores!
+          </p>
+          <div class="reviews__rating">★★★★★</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-cta">
+      <div class="cta">
+        <div class="cta__img cta__img--logo">
+          <img
+            src="img/logo-white.png"
+            alt="Natours"
+            onerror="this.style.display = 'none'"
+          />
+        </div>
+        <img
+          src="img/tour-5-2.jpg"
+          alt=""
+          class="cta__img cta__img--1"
+          onerror="
+            this.style.background = 'linear-gradient(135deg,#7dd56f,#28b487)'
+          "
+        />
+        <img
+          src="img/tour-5-1.jpg"
+          alt=""
+          class="cta__img cta__img--2"
+          onerror="
+            this.style.background = 'linear-gradient(135deg,#28b487,#1e9e6e)'
+          "
+        />
+        <div class="cta__content">
+          <h2 class="heading-secondary">What are you waiting for?</h2>
+          <p class="cta__text">
+            10 days. 1 adventure. Infinite memories. Make it yours today!
+          </p>
+        </div>
+        <div class="cta__btn">
+          <button class="btn btn--green">Book tour now!</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer__inner">
+        <div class="footer__logo">
+          <img
+            src="img/logo-green.png"
+            alt="Natours"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'block';
+            "
+          />
+          <span
+            style="
+              display: none;
+              color: #55c57a;
+              font-family: 'Playfair Display', serif;
+              font-size: 1.8rem;
+              font-weight: 700;
+            "
+            >NATOURS</span
+          >
+        </div>
+        <ul class="footer__nav">
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Download apps</a></li>
+          <li><a href="#">Become a guide</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <p class="footer__copyright">
+        &copy; 2024 Natours by Jonas Schmedtmann. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document
+        .getElementById('hamburger')
+        .addEventListener('click', () =>
+          document.getElementById('mobileNav').classList.add('open'),
+        );
+      document
+        .getElementById('mobileClose')
+        .addEventListener('click', () =>
+          document.getElementById('mobileNav').classList.remove('open'),
+        );
+
+      try {
+        mapboxgl.accessToken =
+          'pk.eyJ1Ijoiam9uYXNzY2htZWR0bWFubiIsImEiOiJjam54ZmM5N3gwNjAzM3dtZDNxYTVlMnd2In0.ytpI7V7w7cyT1Kq5rT9Z1A';
+        const locations = [
+          {
+            coordinates: [-112.987418, 37.198125],
+            description: 'Zion Canyon National Park',
+          },
+          {
+            coordinates: [-111.376161, 36.86438],
+            description: 'Antelope Canyon',
+          },
+          {
+            coordinates: [-112.115763, 36.058973],
+            description: 'Grand Canyon National Park',
+          },
+          {
+            coordinates: [-116.107963, 34.011646],
+            description: 'Joshua Tree National Park',
+          },
+        ];
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/jonasschmedtmann/cjnxfn3zk7bj52rpegdltx58h',
+          scrollZoom: false,
+        });
+        const bounds = new mapboxgl.LngLatBounds();
+        locations.forEach((loc) => {
+          const el = document.createElement('div');
+          el.className = 'marker';
+          new mapboxgl.Marker({ element: el, anchor: 'bottom' })
+            .setLngLat(loc.coordinates)
+            .addTo(map);
+          new mapboxgl.Popup({ offset: 30, closeOnClick: false })
+            .setLngLat(loc.coordinates)
+            .setHTML(`<p>${loc.description}</p>`)
+            .addTo(map);
+          bounds.extend(loc.coordinates);
+        });
+        map.fitBounds(bounds, {
+          padding: { top: 200, bottom: 150, left: 50, right: 50 },
+        });
+      } catch (e) {
+        console.log('Map unavailable');
+      }
+    </script>
+  </body>
+</html>
