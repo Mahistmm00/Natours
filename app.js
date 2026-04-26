@@ -43,7 +43,8 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'], // 👈 also needed — fonts are loaded from here
         scriptSrc: ["'self'", 'https://js.stripe.com'],
         frameSrc: ["'self'", 'https://js.stripe.com'],
         connectSrc: ["'self'", 'https://api.stripe.com'],
