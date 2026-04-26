@@ -12,7 +12,6 @@ export const bookTour = async (tourId) => {
       `/api/v1/bookings/checkout-session/${tourId}`,
       { withCredentials: true },
     );
-    console.log('data', data);
 
     await stripe.redirectToCheckout({
       sessionId: data.session.id,
